@@ -80,7 +80,7 @@ def AddMilkCollection(request):
         return Response({'error':'No farmer account'})
     
     collection = MilkCollection.objects.create(
-        farmer=farmer,
+        farmer=farmer, 
         porter=porter,
         liters=request.data.get("liters"),
         session=request.data.get("sessions")
