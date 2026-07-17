@@ -118,22 +118,22 @@ class FeedBack(BaseModel):
     def __str__(self):
         return self.title
     
-    # Notices
-    class Notice(BaseModel):
-        TARGET_CHOICES = [
-            ('ALL', 'All Users'),
-            ('FARMERS', 'Farmers Only'),
-            ('PORTERS', 'Porters Only')
+# Notices
+class Notice(BaseModel):
+    TARGET_CHOICES = [
+        ('ALL', 'All Users'),
+        ('FARMERS', 'Farmers Only'),
+        ('PORTERS', 'Porters Only')
 
-        ]
-        title=models.CharField(max_length=20)
-        message=models.TextField()
-        target=models.CharField(max_length=50, choices=TARGET_CHOICES)
-        created_by=models.ForeignKey(User,on_delete=models.CASCADE)
-        is_important=models.BooleanField(default=False)
+    ]
+    title=models.CharField(max_length=20)
+    message=models.TextField()
+    target=models.CharField(max_length=50, choices=TARGET_CHOICES)
+    created_by=models.ForeignKey(User,on_delete=models.CASCADE)
+    is_important=models.BooleanField(default=False)
 
-        def __str__(self):
-            return self.title
+    def __str__(self):
+        return self.title
         
 
 

@@ -7,5 +7,7 @@ router=DefaultRouter()
 router.register('feedback', views.FeedbackViewset,basename='feedback')
 urlpatterns = [
     path('farmercollection/' ,views.FarmerCollection.as_view()),
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('dashboard/', views.FarmerDashboard.as_view()),
+    path('notices',views.FarmerViewSet.as_view()), 
 ]

@@ -2,12 +2,13 @@ from datetime import timedelta
 from django.shortcuts import render
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated
-from core.models import FarmerProfile, MilkCollection, PorterProfile
+from core.models import FarmerProfile, MilkCollection, PorterProfile,Notice
 from rest_framework.response import Response
 from rest_framework import generics
 from collector.serializer import MilkCollectorSerializer, RecentCollectionSerializer
 from django.utils import timezone
 from django.db.models import Sum
+from cooperative.serializer import NoticeSerializer
 
 # Create your views here.
 
@@ -105,3 +106,16 @@ class MyCollections(generics.ListAPIView):
             MilkCollection.objects.filter(porter=porter).select_related('farmer').order_by('created_at')
         )
         return  collections
+    
+
+
+class PorterNoticeView(generics.ListAPIView):
+    serializer_class = NoticeSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        notices = (
+            Notice.objects.filter(target__in = ['ALL','PORTERS'])
+            .order_by('created_at')
+        )
+        return notices
