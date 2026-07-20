@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-6)$yggh9++_7ra*6qgufvli&4xx$6cw#lyu^)a^_%nwx5-f=$o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "virginiaemp.alwaysdata.net",
+    "localhost",
+    "127.0.0.1"
+]
 
 AUTH_USER_MODEL ='core.User'
 
@@ -101,10 +105,10 @@ WSGI_APPLICATION = 'maziwasyncbck.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'maziwasyncdb',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'NAME': 'virginiaemp_maziwasyncdb',
+        'USER': 'virginiaemp',
+        'PASSWORD': 'Modcom2026',
+        'HOST': 'mysql-virginiaemp.alwaysdata.net',
         'PORT': '3306',
     }
 }

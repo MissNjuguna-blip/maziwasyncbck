@@ -13,6 +13,6 @@ import sys
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'maziwasyncbck.settings')
-sys.path.append()
+sys.path.append("/home/virginiaemp/www/maziwasyncbck")
 
 application = get_wsgi_application()
