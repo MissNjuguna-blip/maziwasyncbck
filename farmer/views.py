@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from rest_framework import generics, viewsets
+from rest_framework.decorators  import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.views import APIView
+
+from farmer.services import CattleAIService
 from .serializer import FeedbackSerializer, MilkCollectionSerializer
 from core.models import FarmerProfile, MilkCollection,FeedBack, Notice
 from django.db.models import Sum
@@ -98,3 +101,18 @@ class FarmerViewSet(generics.ListAPIView):
             .order_by('created_at')
         )
         return notices
+    
+
+# CattleAI function
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def PredictDiseases (request):
+    animal = request.data.get('Animal')
+    age = request.data.get('Age')
+    temp = request.data.get('Temperature')
+    description = request.data.get('Description')
+
+    # create our ai object from the CatleAi
+    ai_service = CattleAIService()
+    result = ai_service.predict(animal_type = animal, age = age, temp = temp, description = description)
+    return Response (result)

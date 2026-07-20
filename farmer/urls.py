@@ -10,4 +10,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('dashboard/', views.FarmerDashboard.as_view()),
     path('notices',views.FarmerViewSet.as_view()), 
+    path('predict/',views.PredictDiseases), 
 ]
