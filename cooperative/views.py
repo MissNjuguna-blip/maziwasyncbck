@@ -172,7 +172,8 @@ class MilkCollectionViewSet (viewsets.ModelViewSet):
     serializer_class = MilkCollectorSerializer
     permission_classes=[IsAdminUser]
     http_method_names = ['get', 'put','patch','delete']
-    
+
+
 
 # Notice Board
 class NoticeViewSet(viewsets.ModelViewSet):
@@ -182,6 +183,45 @@ class NoticeViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
+
+# farmers with bal 
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def farmersbalance(request):
+
+    farmers = FarmerProfile.objects.all()
+
+    data = []
+
+    for farmer in farmers:
+        earned = MilkCollection.objects.filter(
+            farmer=farmer
+        ).aggregate(
+            total=Sum('total_amount')
+        )['total'] or 0
+
+
+        paid = Payment.objects.filter(
+            farmer=farmer,
+            status="COMPLETED"
+        ).aggregate(
+            total=Sum('amount')
+        )['total'] or 0
+
+        balance = earned - paid
+        if balance > 0:
+            data.append({
+                "farmer_id": farmer.id,
+                "farmer": farmer.first_name,
+                "phone": farmer.mpesa_number,
+                "earned": earned,
+                "paid": paid,
+                "balance": balance
+            })
+
+    return Response(data)
+
+
 
 # initiate disbursement to the farmer 
 @api_view(['POST'])

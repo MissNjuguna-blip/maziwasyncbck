@@ -20,7 +20,7 @@ from cooperative.serializer import NoticeSerializer
 class FarmerDashboard(APIView):
     permission_classes=[IsAuthenticated]
     def get(self,request):
-        farmer=self.request.user.farmer_profile
+        farmer=request.user.farmer_profile
         collection=MilkCollection.objects.filter(farmer=farmer)
         total_collection=collection.count()
         total_liters = collection.aggregate(total=Sum('liters'))['total'] or 0
