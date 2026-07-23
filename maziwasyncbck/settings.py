@@ -31,6 +31,11 @@ ALLOWED_HOSTS = [
     "127.0.0.1"
 ]
 
+CORS_ALLOWED_HOSTS = [
+    'http://localhost:5173/',
+    'HTTP:127.0.0.1:8000'
+]
+
 AUTH_USER_MODEL ='core.User'
 
 # Application definition
