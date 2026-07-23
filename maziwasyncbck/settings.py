@@ -32,8 +32,8 @@ ALLOWED_HOSTS = [
 ]
 
 CORS_ALLOWED_HOSTS = [
-    'http://localhost:5173/',
-    'HTTP:127.0.0.1:8000'
+    'http://localhost:5173',
+    'http:127.0.0.1:8000'
 ]
 
 AUTH_USER_MODEL ='core.User'
